@@ -1,7 +1,9 @@
-package com.udacity.jdnd.course3.critter.user;
+package com.udacity.jdnd.course3.critter.controller.user;
 
 import java.time.LocalDate;
 import java.util.Set;
+
+import com.udacity.jdnd.course3.critter.data.user.EmployeeSkill;
 
 /**
  * Represents a request to find available employees by skills. Does not map

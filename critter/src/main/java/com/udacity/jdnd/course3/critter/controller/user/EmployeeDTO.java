@@ -1,7 +1,9 @@
-package com.udacity.jdnd.course3.critter.user;
+package com.udacity.jdnd.course3.critter.controller.user;
 
 import java.time.DayOfWeek;
 import java.util.Set;
+
+import com.udacity.jdnd.course3.critter.data.user.EmployeeSkill;
 
 /**
  * Represents the form that employee request and response data takes. Does not map
