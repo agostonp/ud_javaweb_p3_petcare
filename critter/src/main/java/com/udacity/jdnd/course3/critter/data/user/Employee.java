@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 
 import com.udacity.jdnd.course3.critter.data.schedule.Schedule;
 
@@ -24,6 +25,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
+@NamedQuery(
+    name = "Employee.findAllByServicesAndDay",
+    query = "select distinct e " +
+    "from Employee as e " +
+    "join e.skills as sk " +
+    "where sk in (:skills)" +
+    "and :day in e.daysAvailable"
+)
+
 
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString @EqualsAndHashCode
