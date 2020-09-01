@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "3da4eeec-6238-471f-ab55-ce0d742fa76e",
-		"name": "Udacity",
+		"_postman_id": "60c5ad1b-ee5a-4935-82c8-1860a3e6b3c4",
+		"name": "Udacity Critter",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -72,6 +72,41 @@
 					"path": [
 						"pet",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save Pet with owner",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"type\": \"DOG\",\r\n  \"name\": \"Aszti\",\r\n  \"ownerId\": 1,\r\n  \"birthDate\": \"2012-02-17T04:43:57.995Z\",\r\n  \"notes\": \"Hello Aszti\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/pet",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"pet"
 					]
 				}
 			},
@@ -411,15 +446,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8082/user/customer",
+					"raw": "http://localhost:8082/pet",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8082",
 					"path": [
-						"user",
-						"customer"
+						"pet"
 					]
 				}
 			},
@@ -490,7 +524,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8082/user/customer/pet/1",
+					"raw": "http://localhost:8082/user/customer/pet/2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -500,7 +534,7 @@
 						"user",
 						"customer",
 						"pet",
-						"1"
+						"2"
 					]
 				}
 			},
