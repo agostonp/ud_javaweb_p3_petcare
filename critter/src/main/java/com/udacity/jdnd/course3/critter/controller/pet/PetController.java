@@ -26,12 +26,18 @@ public class PetController {
         this.petService = petService;
     }
 
-    @PostMapping("/**")
+    @PostMapping()
     public PetDTO savePet(@RequestBody PetDTO petDTO) {
         Pet pet = convertPetDTO2Pet(petDTO);
         Long petId = petService.save(pet);
         petDTO.setId(petId);
         return petDTO;
+    }
+
+    @PostMapping("/{petId}")
+    public PetDTO savePetWithIdInPath(@PathVariable long petId, @RequestBody PetDTO petDTO){
+        petDTO.setId(petId);
+        return savePet(petDTO);
     }
 
     @GetMapping("/{petId}")
@@ -60,14 +66,18 @@ public class PetController {
     private static PetDTO convertPet2PetDTO(Pet pet) {
         PetDTO petDTO = new PetDTO();
         BeanUtils.copyProperties(pet, petDTO);
-        petDTO.setOwnerId(pet.getOwner().getId());
+        if(pet.getOwner() != null) {
+            petDTO.setOwnerId(pet.getOwner().getId());
+        }
         return petDTO;
     }
 
     private static List<PetDTO> convertPetList2PetDTOList(List<Pet> pets) {
         List<PetDTO> petDTOs = new ArrayList<>();
-        for(Pet pet : pets) {
-            petDTOs.add(convertPet2PetDTO(pet));
+        if(pets != null) {
+            for(Pet pet : pets) {
+                petDTOs.add(convertPet2PetDTO(pet));
+            }
         }
         return petDTOs;
     }
@@ -75,9 +85,11 @@ public class PetController {
     private static Pet convertPetDTO2Pet(PetDTO petDTO) {
         Pet pet = new Pet();
         BeanUtils.copyProperties(petDTO, pet);
-        Customer owner = new Customer();
-        owner.setId(petDTO.getOwnerId());
-        pet.setOwner(owner);
+        if(petDTO.getOwnerId() > 0L) {
+            Customer owner = new Customer();
+            owner.setId(petDTO.getOwnerId());
+            pet.setOwner(owner);
+        }
         return pet;
     }
 
