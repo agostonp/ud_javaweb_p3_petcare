@@ -10,13 +10,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class PetService {
     private final PetRepository petRepository;
+    private final CustomerService customerService;
 
-    public PetService(PetRepository petRepository) {
+    public PetService(PetRepository petRepository, CustomerService customerService) {
         this.petRepository = petRepository;
+        this.customerService = customerService;
     }
 
     public Long save(Pet pet) {
-        return petRepository.save(pet).getId();
+        Pet newPet = petRepository.save(pet);
+
+        customerService.addPetToCustomer(newPet);
+
+        return newPet.getId();
     }
 
     public Pet get(Long id) {
