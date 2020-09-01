@@ -1,8 +1,17 @@
 package com.udacity.jdnd.course3.critter.controller.pet;
 
+import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+
+import com.udacity.jdnd.course3.critter.data.pet.Pet;
+import com.udacity.jdnd.course3.critter.data.user.Customer;
+import com.udacity.jdnd.course3.critter.service.PetService;
 
 /**
  * Handles web requests related to Pets.
@@ -11,23 +20,65 @@ import java.util.List;
 @RequestMapping("/pet")
 public class PetController {
 
-    @PostMapping
+    private final PetService petService;
+
+    public PetController(PetService petService) {
+        this.petService = petService;
+    }
+
+    @PostMapping("/**")
     public PetDTO savePet(@RequestBody PetDTO petDTO) {
-        throw new UnsupportedOperationException();
+        Pet pet = convertPetDTO2Pet(petDTO);
+        Long petId = petService.save(pet);
+        petDTO.setId(petId);
+        return petDTO;
     }
 
     @GetMapping("/{petId}")
-    public PetDTO getPet(@PathVariable long petId) {
-        throw new UnsupportedOperationException();
+    public ResponseEntity<PetDTO> getPet(@PathVariable long petId) {
+        try {
+            Pet pet = petService.get(petId);
+            PetDTO petDTO = convertPet2PetDTO(pet);
+            return new ResponseEntity<>(petDTO, HttpStatus.OK);
+        } catch(NoSuchElementException e) {
+            return new ResponseEntity<>(new PetDTO(), HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping
     public List<PetDTO> getPets(){
-        throw new UnsupportedOperationException();
+        List<Pet> pets = petService.getAll();
+        return convertPetList2PetDTOList(pets);
     }
 
     @GetMapping("/owner/{ownerId}")
     public List<PetDTO> getPetsByOwner(@PathVariable long ownerId) {
-        throw new UnsupportedOperationException();
+        List<Pet> pets = petService.getAllByOwnerId(ownerId);
+        return convertPetList2PetDTOList(pets);
     }
+
+    private static PetDTO convertPet2PetDTO(Pet pet) {
+        PetDTO petDTO = new PetDTO();
+        BeanUtils.copyProperties(pet, petDTO);
+        petDTO.setOwnerId(pet.getOwner().getId());
+        return petDTO;
+    }
+
+    private static List<PetDTO> convertPetList2PetDTOList(List<Pet> pets) {
+        List<PetDTO> petDTOs = new ArrayList<>();
+        for(Pet pet : pets) {
+            petDTOs.add(convertPet2PetDTO(pet));
+        }
+        return petDTOs;
+    }
+
+    private static Pet convertPetDTO2Pet(PetDTO petDTO) {
+        Pet pet = new Pet();
+        BeanUtils.copyProperties(petDTO, pet);
+        Customer owner = new Customer();
+        owner.setId(petDTO.getOwnerId());
+        pet.setOwner(owner);
+        return pet;
+    }
+
 }
