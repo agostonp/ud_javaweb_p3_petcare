@@ -30,8 +30,9 @@ public class PetController {
     public PetDTO savePet(@RequestBody PetDTO petDTO) {
         Pet pet = convertPetDTO2Pet(petDTO);
         Long petId = petService.save(pet);
-        petDTO.setId(petId);
-        return petDTO;
+        PetDTO newPetDTO = new PetDTO(petDTO);
+        newPetDTO.setId(petId);
+        return newPetDTO;
     }
 
     @PostMapping("/{petId}")

@@ -31,8 +31,9 @@ public class UserController {
     public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO){
         Customer customer = convertCustomerDTO2Customer(customerDTO);
         Long customerId = customerService.save(customer);
-        customerDTO.setId(customerId);
-        return customerDTO;
+        CustomerDTO newCustomerDTO = new CustomerDTO(customerDTO);
+        newCustomerDTO.setId(customerId);
+        return newCustomerDTO;
     }
 
     @PostMapping("/customer/{customerId}")
