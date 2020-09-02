@@ -110,6 +110,8 @@ public class CritterFunctionalTest {
         Assertions.assertEquals(2, pets.size());
         Assertions.assertEquals(newCustomer.getId(), pets.get(0).getOwnerId());
         Assertions.assertEquals(newPet.getId(), pets.get(0).getId());
+        Assertions.assertEquals(newCustomer.getId(), pets.get(1).getOwnerId());
+        Assertions.assertEquals(newPet2.getId(), pets.get(1).getId());
     }
 
     @Test
@@ -268,12 +270,12 @@ public class CritterFunctionalTest {
         return petDTO;
     }
 
-    private static EmployeeRequestDTO createEmployeeRequestDTO() {
-        EmployeeRequestDTO employeeRequestDTO = new EmployeeRequestDTO();
-        employeeRequestDTO.setDate(LocalDate.of(2019, 12, 25));
-        employeeRequestDTO.setSkills(Sets.newHashSet(EmployeeSkill.FEEDING, EmployeeSkill.WALKING));
-        return employeeRequestDTO;
-    }
+    // private static EmployeeRequestDTO createEmployeeRequestDTO() {
+    //     EmployeeRequestDTO employeeRequestDTO = new EmployeeRequestDTO();
+    //     employeeRequestDTO.setDate(LocalDate.of(2019, 12, 25));
+    //     employeeRequestDTO.setSkills(Sets.newHashSet(EmployeeSkill.FEEDING, EmployeeSkill.WALKING));
+    //     return employeeRequestDTO;
+    // }
 
     private static ScheduleDTO createScheduleDTO(List<Long> petIds, List<Long> employeeIds, LocalDate date, Set<EmployeeSkill> activities) {
         ScheduleDTO scheduleDTO = new ScheduleDTO();
