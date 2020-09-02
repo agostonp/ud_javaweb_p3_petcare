@@ -22,7 +22,9 @@ public class CustomerDTO {
         this.name = other.name;
         this.phoneNumber = other.phoneNumber;
         this.notes = other.notes;
-        this.petIds = new ArrayList<>(petIds);
+        if(other.petIds != null) {
+            this.petIds = new ArrayList<>(other.petIds);
+        }
     }
 
     public long getId() {
