@@ -31,8 +31,9 @@ import lombok.ToString;
     query = "select distinct e " +
     "from Employee as e " +
     "join e.skills as sk " +
+    "join e.daysAvailable as da " +
     "where sk in (:skills)" +
-    "and :day in e.daysAvailable"
+    "and da = :day"
 )
 
 
@@ -52,11 +53,11 @@ public class Employee {
     @ElementCollection
     private Set<DayOfWeek> daysAvailable;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-      name = "schedule_employee",
-      joinColumns = { @JoinColumn(name = "schedule_id") },
-      inverseJoinColumns = { @JoinColumn(name = "employee_id")}
-    )
-    private List<Schedule> schedules;
+    // @ManyToMany(fetch = FetchType.LAZY)
+    // @JoinTable(
+    //   name = "schedule_employee",
+    //   joinColumns = { @JoinColumn(name = "schedule_id") },
+    //   inverseJoinColumns = { @JoinColumn(name = "employee_id")}
+    // )
+    // private List<Schedule> schedules;
 }
