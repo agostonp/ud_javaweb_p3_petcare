@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.udacity.jdnd.course3.critter.data.pet.Pet;
 import com.udacity.jdnd.course3.critter.data.user.Customer;
@@ -152,9 +153,7 @@ public class UserController {
     private static List<EmployeeDTO> convertEmployeeList2EmployeeDTOList(List<Employee> employees) {
         List<EmployeeDTO> employeeDTOs = new ArrayList<>();
         if(employees != null) {
-            for(Employee employee : employees) {
-                employeeDTOs.add(convertEmployee2EmployeeDTO(employee));
-            }
+            employeeDTOs = employees.stream().map(UserController::convertEmployee2EmployeeDTO).collect(Collectors.toList());
         }
         return employeeDTOs;
     }
@@ -165,7 +164,7 @@ public class UserController {
         }
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDTO, employee);
-        if(employee.getId() <= 0L) {
+        if(employee.getId() != null && employee.getId() <= 0L) {
             employee.setId(null);
         }
 
