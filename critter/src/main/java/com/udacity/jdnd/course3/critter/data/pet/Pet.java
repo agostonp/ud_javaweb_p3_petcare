@@ -44,11 +44,17 @@ public class Pet {
     private LocalDate birthDate;
     private String notes;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-      name = "schedule_pet",
-      joinColumns = { @JoinColumn(name = "schedule_id") },
-      inverseJoinColumns = { @JoinColumn(name = "pet_id")}
-    )
-    private List<Schedule> schedules;
+    public static Pet builder(Long id) {
+        Pet pet = new Pet();
+        pet.setId(id);
+        return pet;
+    }
+
+    // @ManyToMany(fetch = FetchType.LAZY)
+    // @JoinTable(
+    //   name = "schedule_pet",
+    //   joinColumns = { @JoinColumn(name = "schedule_id") },
+    //   inverseJoinColumns = { @JoinColumn(name = "pet_id")}
+    // )
+    // private List<Schedule> schedules;
 }

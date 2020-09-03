@@ -53,6 +53,12 @@ public class Employee {
     @ElementCollection
     private Set<DayOfWeek> daysAvailable;
 
+    public static Employee builder(Long id) {
+        Employee employee = new Employee();
+        employee.setId(id);
+        return employee;
+    }
+
     // @ManyToMany(fetch = FetchType.LAZY)
     // @JoinTable(
     //   name = "schedule_employee",
