@@ -1,9 +1,7 @@
 package com.udacity.jdnd.course3.critter.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.udacity.jdnd.course3.critter.data.pet.Pet;
 import com.udacity.jdnd.course3.critter.data.schedule.Schedule;
 import com.udacity.jdnd.course3.critter.data.schedule.ScheduleRepository;
 

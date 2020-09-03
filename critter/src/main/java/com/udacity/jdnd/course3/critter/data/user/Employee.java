@@ -1,21 +1,14 @@
 package com.udacity.jdnd.course3.critter.data.user;
 
 import java.time.DayOfWeek;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
-
-import com.udacity.jdnd.course3.critter.data.schedule.Schedule;
 
 import org.hibernate.annotations.Nationalized;
 
@@ -58,12 +51,4 @@ public class Employee {
         employee.setId(id);
         return employee;
     }
-
-    // @ManyToMany(fetch = FetchType.LAZY)
-    // @JoinTable(
-    //   name = "schedule_employee",
-    //   joinColumns = { @JoinColumn(name = "schedule_id") },
-    //   inverseJoinColumns = { @JoinColumn(name = "employee_id")}
-    // )
-    // private List<Schedule> schedules;
 }
