@@ -21,17 +21,14 @@ public class EmployeeRepository {
 
     public Employee save(Employee employee) {
         if(entityManager.contains(employee)) {
-            System.out.println("#### contains");
             return employee; // Do nothing. Changes will be saved at the end of the PersistenceContext
         }
         else if(employee.getId() == null || employee.getId() <= 0L) {
-            System.out.println("#### persist");
             employee.setId(null);
             entityManager.persist(employee);
             return employee;
         }
         else {
-            System.out.println("#### merge");
             return entityManager.merge(employee);
         }
     }
